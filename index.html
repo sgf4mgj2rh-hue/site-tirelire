@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tirelire.ch — Tes finances, sans le jargon</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+<script type="text/babel" src="design-system.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "light",
+  "accent": "#E0763B",
+  "showDS": true,
+  "headline": "jargon"
+}/*EDITMODE-END*/;
+
+const ACCENT_MAP = {
+  "#F2C035": { soft: "#FBEFC1", softDark: "#3A2F0F" }, // yellow
+  "#E0763B": { soft: "#FBE3D2", softDark: "#3A2113" }, // orange
+  "#E8A87C": { soft: "#FAE7D8", softDark: "#3A2418" }, // blush
+};
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    document.documentElement.setAttribute("data-theme", t.theme === "dark" ? "dark" : "light");
+    const a = ACCENT_MAP[t.accent] || ACCENT_MAP["#F2C035"];
+    const isDark = t.theme === "dark";
+    document.documentElement.style.setProperty('--accent', t.accent);
+    document.documentElement.style.setProperty('--accent-soft', isDark ? a.softDark : a.soft);
+  }, [t.theme, t.accent]);
+
+  return (
+    <>
+      <TopNav />
+      <main>
+        <Hero headlineKey={t.headline} />
+        <Strip />
+        <Guides />
+        <BudgetSection />
+        <PilierSection />
+        <ETFSection />
+        <CTA />
+      </main>
+      <Footer />
+      {t.showDS && <DesignSystem />}
+
+      <TweaksPanel title="Tweaks · Tirelire">
+        <TweakSection label="Apparence">
+          <TweakRadio
+            label="Thème"
+            value={t.theme}
+            onChange={v => setTweak('theme', v)}
+            options={['light', 'dark']}
+          />
+          <TweakColor
+            label="Accent"
+            value={t.accent}
+            onChange={v => setTweak('accent', v)}
+            options={['#F2C035', '#E0763B', '#E8A87C']}
+          />
+        </TweakSection>
+        <TweakSection label="Titre du hero">
+          <TweakRadio
+            label="Variation"
+            value={t.headline}
+            onChange={v => setTweak('headline', v)}
+            options={['jargon', 'dimanche', 'clair']}
+          />
+        </TweakSection>
+        <TweakSection label="Affichage">
+          <TweakToggle
+            label="Strip Design System"
+            value={t.showDS}
+            onChange={v => setTweak('showDS', v)}
+          />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+</body>
+</html>
