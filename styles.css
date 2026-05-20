@@ -1014,8 +1014,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr repeat(4, 1fr);
-  gap: 60px;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
   margin-bottom: 56px;
 }
 .footer h4 {
@@ -1679,4 +1679,43 @@ button { font-family: inherit; cursor: pointer; }
   .cta { padding: 48px 26px; }
   .phone-big { width: 280px; }
   .phone-big-screen { height: 560px; }
+}
+
+/* ── Modal expert ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; padding: 20px;
+}
+.modal-card {
+  background: var(--bg);
+  border-radius: 18px;
+  padding: 36px;
+  max-width: 480px; width: 100%;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+}
+.modal-card h3 { margin: 14px 0 8px; font-size: 22px; }
+.modal-card > p { color: var(--ink-2); font-size: 14.5px; line-height: 1.55; margin-bottom: 20px; }
+.modal-card label { display: block; font-size: 13px; font-weight: 600; margin: 12px 0 5px; color: var(--ink); }
+.modal-card input, .modal-card textarea {
+  width: 100%; box-sizing: border-box;
+  border: 1.5px solid var(--line); border-radius: 10px;
+  padding: 10px 13px; font-size: 14px; font-family: inherit;
+  background: var(--bg); color: var(--ink);
+}
+.modal-card input:focus, .modal-card textarea:focus {
+  outline: none; border-color: var(--primary);
+}
+.modal-close {
+  position: absolute; top: 16px; right: 18px;
+  background: none; border: none; font-size: 18px;
+  color: var(--ink-3); cursor: pointer; line-height: 1;
+}
+.modal-confirm { text-align: center; padding: 12px 0; }
+.modal-check {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--primary-soft); color: var(--primary-deep);
+  display: grid; place-items: center; margin: 0 auto 16px;
 }

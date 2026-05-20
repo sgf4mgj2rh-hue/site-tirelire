@@ -56,7 +56,7 @@ function TopNav() {
     <header className="nav">
       <div className="nav-inner">
         <a href="#" className="logo">
-          <span className="logo-mark"></span>
+          <img src="logo.png" alt="Tirelire.ch" style={{height:36, width:36, objectFit:'contain', borderRadius:8}} />
           <span>Tirelire<span className="logo-suffix">.ch</span></span>
         </a>
         <nav className="nav-links">
@@ -82,19 +82,17 @@ function TopNav() {
 
 // ============ Hero ============
 const HEADLINES = {
-  jargon:   { l1: "Tes finances,",     l2: <>sans <em>le jargon.</em></> },
-  dimanche: { l1: "Sept minutes,",     l2: <>un <em>dimanche.</em></> },
-  clair:    { l1: "Ton argent,",       l2: <>en <em>clair.</em></> },
+  investir: { l1: "Trouve l'argent", l2: <>pour commencer à <em>investir.</em></> },
 };
 
-function Hero({ headlineKey = "jargon" }) {
-  const h = HEADLINES[headlineKey] || HEADLINES.jargon;
+function Hero({ headlineKey = "investir" }) {
+  const h = HEADLINES[headlineKey] || HEADLINES.investir;
   return (
     <section className="hero">
       <div className="container">
         <span className="hero-tag">
           <span className="swiss-cross"></span>
-          Édition Suisse · Vol. 04 · Printemps 2026
+          Tirelire.ch · Suisse · Gratuit
         </span>
 
         <h1 className="hero-display">
@@ -105,17 +103,13 @@ function Hero({ headlineKey = "jargon" }) {
         <div className="hero-bottom">
           <div>
             <p className="hero-lede">
-              Trois choses qui décident de ton argent à long terme&nbsp;: un budget
-              qui tient, un 3<sup>e</sup> pilier ouvert tôt, et des ETF qui
-              composent dans ton dos. On t'aide pour les trois.
+              La vraie raison pour laquelle tu n'investis pas encore, c'est que
+              tu ne sais pas combien tu peux mettre de côté. L'app calcule ta
+              capacité d'investissement. Le site explique comment l'utiliser.
             </p>
             <div className="hero-ctas">
-              <a className="btn btn-primary btn-lg">Lire l'édition <Icon.Arrow /></a>
-              <a className="btn btn-secondary btn-lg" href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app gratuitement <Icon.Arrow /></a>
-            </div>
-            <div className="hero-meta">
-              <span className="hero-meta-dot"></span>
-              <span><strong style={{color:'var(--ink)'}}>34 218</strong> lecteurs cette semaine · Mis à jour le 14 mai 2026</span>
+              <a className="btn btn-primary btn-lg" href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app <Icon.Arrow /></a>
+              <a className="btn btn-secondary btn-lg" href="#budget">Comment ça marche <Icon.Arrow /></a>
             </div>
           </div>
 
@@ -183,7 +177,7 @@ function Guides() {
       icon: <Icon.Wallet />,
       title: <>La méthode qui tient <em>vraiment</em> le mois.</>,
       desc: "Loyer genevois, LAMal, acomptes d'impôt, AVS — on adapte la règle 50/30/20 à ta réalité suisse.",
-      kicker: "App à venir",
+      kicker: "Disponible · Gratuit",
       anchor: "#budget",
     },
     {
@@ -192,7 +186,7 @@ function Guides() {
       icon: <Icon.Pig />,
       title: <>Pourquoi ouvrir un 3<sup>e</sup> pilier <em>aujourd'hui.</em></>,
       desc: "Une déduction fiscale qui te suit toute ta vie. Plus tu commences tôt, plus l'effet boule de neige t'avantage.",
-      kicker: "Parrainage à venir",
+      kicker: "Calculatrice incluse",
       anchor: "#pilier",
       accent: true,
     },
@@ -236,9 +230,49 @@ function Guides() {
   );
 }
 
+// ============ Modal liste d'attente expert ============
+function ExpertModal({ open, onClose }) {
+  const [sent, setSent] = React.useState(false);
+  if (!open) return null;
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-card" onClick={e => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose}>✕</button>
+        {!sent ? (
+          <>
+            <span className="chip">30 min · gratuit</span>
+            <h3>Rejoins la liste d'attente</h3>
+            <p>Un conseiller indépendant suisse te contacte pour débroussailler ton budget. Remplis ce court formulaire pour réserver ta place.</p>
+            <form onSubmit={e => { e.preventDefault(); setSent(true); }}>
+              <label>Prénom</label>
+              <input type="text" placeholder="Marie" required />
+              <label>Email</label>
+              <input type="email" placeholder="marie@email.ch" required />
+              <label>Décris ta situation en 2 phrases</label>
+              <textarea rows={3} placeholder="Ex : je gagne CHF 5 000/mois et je ne sais pas combien je peux mettre de côté pour investir." required />
+              <button type="submit" className="btn btn-primary" style={{width:'100%', marginTop:12}}>
+                M'inscrire sur la liste <Icon.Arrow />
+              </button>
+            </form>
+          </>
+        ) : (
+          <div className="modal-confirm">
+            <div className="modal-check"><Icon.Check /></div>
+            <h3>Tu es sur la liste !</h3>
+            <p>On te contacte dans les 48h pour fixer un créneau. Merci pour ta confiance.</p>
+            <button className="btn btn-secondary" onClick={onClose} style={{marginTop:16}}>Fermer</button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ============ Section Budget — app + expert ============
 function BudgetSection() {
+  const [expertOpen, setExpertOpen] = React.useState(false);
   return (
+    <>
     <section className="section" id="budget">
       <div className="container">
         <div className="section-head">
@@ -259,22 +293,22 @@ function BudgetSection() {
               <li>
                 <span className="bp-num">01</span>
                 <div>
-                  <strong>La grille adaptée à ton canton.</strong>
-                  <span>Loyer, LAMal, AVS, acomptes d'impôt&nbsp;: les vraies charges fixes suisses, pas un modèle américain.</span>
+                  <strong>Renseigne ton revenu mensuel.</strong>
+                  <span>Salaire net, rentes, revenus annexes — ce que tu reçois chaque mois.</span>
                 </div>
               </li>
               <li>
                 <span className="bp-num">02</span>
                 <div>
-                  <strong>La réserve avant tout.</strong>
-                  <span>Trois mois de charges sur un compte séparé — c'est ce qui te permet de dire <em>non</em> aux mauvaises décisions.</span>
+                  <strong>Note toutes tes dépenses.</strong>
+                  <span>Loyer, LAMal, courses, transports, loisirs — tout ce qui sort du compte.</span>
                 </div>
               </li>
               <li>
                 <span className="bp-num">03</span>
                 <div>
-                  <strong>Ensuite seulement, on investit.</strong>
-                  <span>Pilier 3a d'abord, ETF ensuite — dans cet ordre, et jamais l'inverse.</span>
+                  <strong>Découvre ce que tu peux investir.</strong>
+                  <span>L'app calcule ta capacité d'investissement réelle, mois après mois.</span>
                 </div>
               </li>
             </ul>
@@ -282,11 +316,11 @@ function BudgetSection() {
             <div className="budget-actions">
               <div className="action-card is-primary">
                 <div className="action-head">
-                  <span className="chip is-green">Bientôt · été 2026</span>
-                  <h4>L'app Tirelire <em>arrive.</em></h4>
+                  <span className="chip is-green">Disponible · gratuit</span>
+                  <h4>L'app Tirelire <em>est là.</em></h4>
                 </div>
-                <p>Catégorise tes dépenses TWINT et carte automatiquement, fixe des objectifs par mois et vois venir l'acompte d'impôt.</p>
-                <button className="btn btn-primary">Rejoindre la liste d'attente <Icon.Arrow /></button>
+                <p>Découvre combien tu peux investir chaque mois. Saisis tes revenus et dépenses, l'app calcule ta capacité d'investissement en temps réel.</p>
+                <a className="btn btn-primary" href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app gratuitement <Icon.Arrow /></a>
               </div>
               <div className="action-card">
                 <div className="action-head">
@@ -294,7 +328,7 @@ function BudgetSection() {
                   <h4>Ou parle à un <em>expert.</em></h4>
                 </div>
                 <p>Rendez-vous visio avec un conseiller indépendant suisse. On débroussaille ton budget ensemble, sans vente déguisée.</p>
-                <button className="btn btn-secondary">Réserver un créneau <Icon.Arrow /></button>
+                <button className="btn btn-secondary" onClick={() => setExpertOpen(true)}>Rejoindre la liste d'attente <Icon.Arrow /></button>
               </div>
             </div>
           </div>
@@ -364,13 +398,15 @@ function BudgetSection() {
             </div>
 
             <div className="phone-badge">
-              <span className="chip is-warm">Mockup · v0.3</span>
-              <p>Aperçu de l'app que nous développons. Donne-nous ton avis sur la liste d'attente.</p>
+              <span className="chip is-green">En ligne · v3</span>
+              <p>Version disponible gratuitement sur app-tirelire.netlify.app</p>
             </div>
           </div>
         </div>
       </div>
     </section>
+    <ExpertModal open={expertOpen} onClose={() => setExpertOpen(false)} />
+    </>
   );
 }
 
@@ -391,7 +427,6 @@ function PilierSection() {
         <div className="section-head">
           <span className="section-kicker">§ 02 — Prévoyance</span>
           <h2 className="section-title">Le 3<sup style={{fontSize:'0.55em', verticalAlign:'super'}}>e</sup> pilier&nbsp;: <em>le rendez-vous</em> annuel le plus rentable.</h2>
-          <a className="section-link">Tout sur le 3a <Icon.Arrow /></a>
         </div>
 
         <p className="pilier-lede">
@@ -478,32 +513,10 @@ function PilierSection() {
               </div>
             </div>
 
-            <a className="btn btn-accent btn-lg" style={{marginTop:12, alignSelf:'flex-start'}}>Ouvrir un 3a en 4 min <Icon.Arrow /></a>
+            <a className="btn btn-accent btn-lg" href="https://viac.ch" target="_blank" rel="noopener noreferrer" style={{marginTop:12, alignSelf:'flex-start'}}>Ouvrir un 3a en 4 min <Icon.Arrow /></a>
           </div>
         </div>
 
-        {/* Parrainage teaser */}
-        <div className="parrainage">
-          <div className="parrainage-graphic">
-            <div className="parrainage-num">100<sup>CHF</sup></div>
-            <span style={{fontSize:13, color:'var(--ink-3)', letterSpacing:'0.06em', textTransform:'uppercase', fontWeight:600}}>par filleul</span>
-          </div>
-          <div>
-            <span className="chip is-warm">Bientôt · automne 2026</span>
-            <h3>Parraine tes proches. <em>Gagnez les deux.</em></h3>
-            <p>
-              On lance un programme de parrainage simple&nbsp;: tu invites un ami
-              à ouvrir son premier pilier 3a sur Tirelire, vous touchez chacun
-              100 CHF crédités directement sur le compte. Pas de chasse au
-              client, pas de bonus crypto&nbsp;: juste un coup de pouce pour qu'il
-              commence enfin.
-            </p>
-            <div style={{display:'flex', gap:10, marginTop:18, flexWrap:'wrap'}}>
-              <button className="btn btn-primary">M'inscrire en avant-première <Icon.Arrow /></button>
-              <button className="btn btn-ghost">Comment ça marchera</button>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -549,7 +562,6 @@ function ETFSection() {
         <div className="section-head">
           <span className="section-kicker">§ 03 — Investir long terme</span>
           <h2 className="section-title">Les intérêts composés&nbsp;: <em>ton meilleur</em> collègue.</h2>
-          <a className="section-link">Notre guide ETF <Icon.Arrow /></a>
         </div>
 
         <p className="pilier-lede">
@@ -682,7 +694,7 @@ function ETFSection() {
                 <strong>Effet boule de neige&nbsp;:</strong>
                 <span> les intérêts représentent <strong style={{color:'var(--primary)'}}>{Math.round(interest/fv*100)}&nbsp;%</strong> du capital final.</span>
               </div>
-              <button className="btn btn-primary">Ouvrir un plan ETF <Icon.Arrow /></button>
+              <a className="btn btn-primary" href="https://www.swissquote.ch" target="_blank" rel="noopener noreferrer">Ouvrir un plan ETF <Icon.Arrow /></a>
             </div>
           </div>
         </div>
@@ -895,7 +907,7 @@ function Calculator() {
               </div>
             </div>
 
-            <a className="btn btn-accent btn-lg" style={{marginTop:12, alignSelf:'flex-start'}}>Ouvrir un 3a en 4 min <Icon.Arrow /></a>
+            <a className="btn btn-accent btn-lg" href="https://viac.ch" target="_blank" rel="noopener noreferrer" style={{marginTop:12, alignSelf:'flex-start'}}>Ouvrir un 3a en 4 min <Icon.Arrow /></a>
           </div>
         </div>
       </div>
@@ -906,11 +918,12 @@ function Calculator() {
 // ============ CTA ============
 function CTA() {
   return (
-    <section className="section" style={{paddingTop:60}}>
+    <section className="section" id="actu" style={{paddingTop:60}}>
       <div className="container">
         <div className="cta">
           <div>
-            <span className="section-kicker" style={{color:'var(--primary)'}}>§ 05 — La newsletter</span>
+            <span className="section-kicker" style={{color:'var(--primary)'}}>§ 04 — La newsletter</span>
+            <span className="chip is-warm" style={{marginTop:12, display:'inline-block'}}>Bientôt disponible</span>
             <h2 className="cta-title" style={{marginTop:18}}>
               Un dimanche sur deux. Sept minutes. <em>Pas plus.</em>
             </h2>
@@ -921,10 +934,9 @@ function CTA() {
             </p>
             <form className="cta-form" onSubmit={e => e.preventDefault()} style={{marginTop:28, maxWidth:520}}>
               <input type="email" placeholder="ton@email.ch" />
-              <button className="btn btn-primary">S'abonner <Icon.Arrow /></button>
+              <button className="btn btn-primary">Me notifier au lancement <Icon.Arrow /></button>
             </form>
             <div className="cta-bullets">
-              <div className="cta-bullet"><Icon.Check /> 12 200 abonnés en Suisse</div>
               <div className="cta-bullet"><Icon.Check /> Hébergement à Lausanne</div>
               <div className="cta-bullet"><Icon.Check /> En français · bientôt en DE</div>
             </div>
@@ -936,10 +948,10 @@ function CTA() {
               <span className="chip is-green">À paraître</span>
             </div>
             <div>
-              <div className="cta-deco-num">26</div>
+              <div className="cta-deco-num">N°1</div>
               <div className="cta-deco-foot">
-                <strong>Mai 2026</strong>
-                Spécial déclaration d'impôt — derniers jours.
+                <strong>Lancement prévu</strong>
+                Automne 2026.
               </div>
             </div>
           </div>
@@ -957,55 +969,35 @@ function Footer() {
         <div className="footer-grid">
           <div>
             <a className="logo" style={{marginBottom:16}}>
-              <span className="logo-mark"></span>
+              <img src="logo.png" alt="Tirelire.ch" style={{height:36, width:36, objectFit:'contain', borderRadius:8}} />
               <span>Tirelire<span className="logo-suffix">.ch</span></span>
             </a>
             <p style={{fontSize:14, color:'var(--ink-2)', lineHeight:1.5, maxWidth:'34ch', margin:'12px 0 0'}}>
-              Le magazine des finances personnelles en Suisse. Indépendant, sans
-              affiliation cachée, hébergé à Lausanne.
+              L'app qui trouve l'argent pour commencer à investir. Gratuit, sans pub, hébergé en Suisse.
             </p>
           </div>
           <div>
-            <h4>Sujets</h4>
+            <h4>Explorer</h4>
             <ul>
-              <li><a>Pilier 3a</a></li>
-              <li><a>ETF & Bourse</a></li>
-              <li><a>Impôts</a></li>
-              <li><a>Budget perso</a></li>
-              <li><a>AVS / LPP</a></li>
+              <li><a href="#budget">Budget mensuel</a></li>
+              <li><a href="#pilier">3e pilier</a></li>
+              <li><a href="#etf">ETF & investissement</a></li>
+              <li><a href="#actu">Newsletter</a></li>
+              <li><a href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app</a></li>
             </ul>
           </div>
           <div>
-            <h4>Outils</h4>
+            <h4>Contact & légal</h4>
             <ul>
-              <li><a>Calculatrice 3a</a></li>
-              <li><a>Simulateur impôts</a></li>
-              <li><a>Comparateur ETF</a></li>
-              <li><a>Budget mensuel</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Magazine</h4>
-            <ul>
-              <li><a>Tous les numéros</a></li>
-              <li><a>Newsletter</a></li>
-              <li><a>Méthodologie</a></li>
-              <li><a>L'équipe</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Pratique</h4>
-            <ul>
-              <li><a>Glossaire</a></li>
-              <li><a>Contact</a></li>
+              <li><a href="mailto:tirelire.ch@gmail.com">tirelire.ch@gmail.com</a></li>
               <li><a>Confidentialité</a></li>
               <li><a>Conditions</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-meta">
-          <span>© 2026 Tirelire.ch — Une publication indépendante, Lausanne CH</span>
-          <span>FINMA · Pas un conseil financier individuel.</span>
+          <span>© 2026 Tirelire.ch — Lausanne, Suisse</span>
+          <span>Pas un conseil financier individuel.</span>
         </div>
       </div>
     </footer>

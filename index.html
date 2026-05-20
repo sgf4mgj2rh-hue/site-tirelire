@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tirelire.ch — Tes finances, sans le jargon</title>
+<title>Tirelire.ch — Trouve l'argent pour commencer à investir</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,8 +26,8 @@
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "theme": "light",
   "accent": "#E0763B",
-  "showDS": true,
-  "headline": "jargon"
+  "showDS": false,
+  "headline": "investir"
 }/*EDITMODE-END*/;
 
 const ACCENT_MAP = {
@@ -60,39 +60,6 @@ function App() {
         <CTA />
       </main>
       <Footer />
-      {t.showDS && <DesignSystem />}
-
-      <TweaksPanel title="Tweaks · Tirelire">
-        <TweakSection label="Apparence">
-          <TweakRadio
-            label="Thème"
-            value={t.theme}
-            onChange={v => setTweak('theme', v)}
-            options={['light', 'dark']}
-          />
-          <TweakColor
-            label="Accent"
-            value={t.accent}
-            onChange={v => setTweak('accent', v)}
-            options={['#F2C035', '#E0763B', '#E8A87C']}
-          />
-        </TweakSection>
-        <TweakSection label="Titre du hero">
-          <TweakRadio
-            label="Variation"
-            value={t.headline}
-            onChange={v => setTweak('headline', v)}
-            options={['jargon', 'dimanche', 'clair']}
-          />
-        </TweakSection>
-        <TweakSection label="Affichage">
-          <TweakToggle
-            label="Strip Design System"
-            value={t.showDS}
-            onChange={v => setTweak('showDS', v)}
-          />
-        </TweakSection>
-      </TweaksPanel>
     </>
   );
 }
