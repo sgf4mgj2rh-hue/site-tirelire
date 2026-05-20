@@ -961,9 +961,78 @@ function CTA() {
   );
 }
 
+// ============ Modal Confidentialité ============
+function PrivacyModal({ open, onClose }) {
+  if (!open) return null;
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-card" style={{maxWidth:560, maxHeight:'80vh', overflowY:'auto'}} onClick={e => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose}>✕</button>
+        <h3>Politique de confidentialité</h3>
+        <p style={{fontSize:12, color:'var(--ink-3)', marginBottom:20}}>Dernière mise à jour : mai 2026</p>
+
+        <p><strong>Responsable du traitement</strong><br/>
+        Tirelire.ch — tirelire.ch@gmail.com — Suisse</p>
+
+        <p><strong>Données collectées</strong><br/>
+        Sur le site vitrine : adresse email si tu t'inscris à la newsletter ou remplis le formulaire de contact expert.<br/>
+        Sur l'app (app-tirelire.netlify.app) : email, mot de passe (chiffré), données de budget saisies manuellement (revenus, dépenses, assurances).</p>
+
+        <p><strong>Finalité</strong><br/>
+        Les emails sont utilisés uniquement pour t'envoyer la newsletter ou te contacter suite à ta demande. Les données de l'app servent exclusivement à afficher ton tableau de bord personnel.</p>
+
+        <p><strong>Hébergement et stockage</strong><br/>
+        Site et app hébergés sur Netlify (USA — soumis aux clauses contractuelles types UE). Données de l'app stockées sur Supabase (EU). Aucune donnée n'est revendue à des tiers.</p>
+
+        <p><strong>Cookies et tracking</strong><br/>
+        Aucun cookie de tracking, aucune régie publicitaire, aucun outil d'analyse tiers.</p>
+
+        <p><strong>Tes droits (nLPD suisse)</strong><br/>
+        Tu peux à tout moment demander l'accès, la rectification ou la suppression de tes données en écrivant à tirelire.ch@gmail.com.</p>
+
+        <button className="btn btn-secondary" onClick={onClose} style={{marginTop:8}}>Fermer</button>
+      </div>
+    </div>
+  );
+}
+
+// ============ Modal Conditions ============
+function ConditionsModal({ open, onClose }) {
+  if (!open) return null;
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-card" style={{maxWidth:560, maxHeight:'80vh', overflowY:'auto'}} onClick={e => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose}>✕</button>
+        <h3>Conditions d'utilisation</h3>
+        <p style={{fontSize:12, color:'var(--ink-3)', marginBottom:20}}>Dernière mise à jour : mai 2026</p>
+
+        <p><strong>Service gratuit et sans garantie</strong><br/>
+        Tirelire.ch est un service gratuit fourni sans garantie de disponibilité ou d'exactitude. Nous nous réservons le droit de modifier ou d'interrompre le service à tout moment.</p>
+
+        <p><strong>Pas un conseil financier</strong><br/>
+        Les contenus, calculatrices et simulations proposés sur ce site sont fournis à titre informatif et éducatif uniquement. Ils ne constituent pas des conseils financiers, fiscaux ou juridiques individuels. Avant toute décision d'investissement, consulte un conseiller agréé.</p>
+
+        <p><strong>Précision des calculs</strong><br/>
+        Les résultats des simulateurs (3e pilier, ETF, budget) sont des estimations basées sur des hypothèses simplifiées. Les rendements passés ne garantissent pas les rendements futurs.</p>
+
+        <p><strong>Liens externes</strong><br/>
+        Les liens vers des partenaires (VIAC, Swissquote, etc.) peuvent inclure des codes d'affiliation. Cela ne change pas le prix pour toi et nous permet de financer le service.</p>
+
+        <p><strong>Droit applicable</strong><br/>
+        Ces conditions sont soumises au droit suisse. Tout litige relève de la compétence des tribunaux du canton du Valais.</p>
+
+        <button className="btn btn-secondary" onClick={onClose} style={{marginTop:8}}>Fermer</button>
+      </div>
+    </div>
+  );
+}
+
 // ============ Footer ============
 function Footer() {
+  const [privacyOpen, setPrivacyOpen] = React.useState(false);
+  const [conditionsOpen, setConditionsOpen] = React.useState(false);
   return (
+    <>
     <footer className="footer">
       <div className="container">
         <div className="footer-grid">
@@ -990,8 +1059,8 @@ function Footer() {
             <h4>Contact & légal</h4>
             <ul>
               <li><a href="mailto:tirelire.ch@gmail.com">tirelire.ch@gmail.com</a></li>
-              <li><a>Confidentialité</a></li>
-              <li><a>Conditions</a></li>
+              <li><a style={{cursor:'pointer'}} onClick={() => setPrivacyOpen(true)}>Confidentialité</a></li>
+              <li><a style={{cursor:'pointer'}} onClick={() => setConditionsOpen(true)}>Conditions</a></li>
             </ul>
           </div>
         </div>
@@ -1001,6 +1070,9 @@ function Footer() {
         </div>
       </div>
     </footer>
+    <PrivacyModal open={privacyOpen} onClose={() => setPrivacyOpen(false)} />
+    <ConditionsModal open={conditionsOpen} onClose={() => setConditionsOpen(false)} />
+    </>
   );
 }
 
