@@ -72,8 +72,8 @@ function TopNav() {
             <span>Pilier 3a, ETF, AVS…</span>
             <span className="kbd" style={{marginLeft:'auto'}}>⌘ K</span>
           </div>
-          <a className="btn btn-ghost">Se connecter</a>
-          <a className="btn btn-primary">Commencer <Icon.Arrow /></a>
+          <a className="btn btn-ghost" href="https://app-tirelire.netlify.app" target="_blank">Se connecter</a>
+          <a className="btn btn-primary" href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app <Icon.Arrow /></a>
         </div>
       </div>
     </header>
@@ -111,7 +111,7 @@ function Hero({ headlineKey = "jargon" }) {
             </p>
             <div className="hero-ctas">
               <a className="btn btn-primary btn-lg">Lire l'édition <Icon.Arrow /></a>
-              <a className="btn btn-secondary btn-lg">Voir les calculatrices</a>
+              <a className="btn btn-secondary btn-lg" href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app gratuitement <Icon.Arrow /></a>
             </div>
             <div className="hero-meta">
               <span className="hero-meta-dot"></span>
