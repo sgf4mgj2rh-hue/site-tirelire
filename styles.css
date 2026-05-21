@@ -1672,12 +1672,18 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width: 720px) {
   .container { padding: 0 22px; }
   .nav-inner { padding: 14px 22px; gap: 16px; }
+  .nav-right { margin-left: 12px; }
+  .nav-right .btn-ghost { display: none; }
   .search-pill { display: none; }
   .section { padding: 64px 0 14px; }
   .section-head { grid-template-columns: 1fr; gap: 14px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .parrainage { padding: 32px 26px; }
-  .cta { padding: 48px 26px; }
+  .cta { padding: 48px 26px; text-align: center; }
+  .cta-lede { max-width: 100%; }
+  .cta-form { flex-direction: column; max-width: 100% !important; }
+  .cta-form input { border-radius: 999px; padding: 12px 18px; }
+  .cta-bullets { justify-content: center; }
   .phone-big { width: 280px; }
   .phone-big-screen { height: 560px; }
 }
