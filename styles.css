@@ -1683,11 +1683,15 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 @media (max-width: 480px) {
+  body { overflow-x: hidden; }
   .footer-grid { grid-template-columns: 1fr; gap: 24px; }
   .btn-lg { width: 100%; justify-content: center; }
   .section { padding: 40px 0 12px; }
   .cta { padding: 36px 18px; }
   .parrainage { padding: 28px 18px; }
+  .hero-lede { font-size: 17px; max-width: 100%; }
+  .hero-ctas { flex-direction: column; align-items: stretch; }
+  .hero-ctas .btn { justify-content: center; }
 }
 
 /* ── Modal expert ── */
