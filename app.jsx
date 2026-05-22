@@ -72,8 +72,8 @@ function TopNav() {
             <span>Pilier 3a, ETF, AVS…</span>
             <span className="kbd" style={{marginLeft:'auto'}}>⌘ K</span>
           </div>
-          <a className="btn btn-ghost" href="https://app-tirelire.netlify.app" target="_blank">Se connecter</a>
-          <a className="btn btn-primary" href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app <Icon.Arrow /></a>
+          <a className="btn btn-ghost" href="https://app-tirelire.ch" target="_blank">Se connecter</a>
+          <a className="btn btn-primary" href="https://app-tirelire.ch" target="_blank">Essayer l'app <Icon.Arrow /></a>
         </div>
       </div>
     </header>
@@ -108,7 +108,7 @@ function Hero({ headlineKey = "investir" }) {
               capacité d'investissement. Le site explique comment l'utiliser.
             </p>
             <div className="hero-ctas">
-              <a className="btn btn-primary btn-lg" href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app <Icon.Arrow /></a>
+              <a className="btn btn-primary btn-lg" href="https://app-tirelire.ch" target="_blank">Essayer l'app <Icon.Arrow /></a>
               <a className="btn btn-secondary btn-lg" href="#budget">Comment ça marche <Icon.Arrow /></a>
             </div>
           </div>
@@ -320,7 +320,7 @@ function BudgetSection() {
                   <h4>L'app Tirelire <em>est là.</em></h4>
                 </div>
                 <p>Découvre combien tu peux investir chaque mois. Saisis tes revenus et dépenses, l'app calcule ta capacité d'investissement en temps réel.</p>
-                <a className="btn btn-primary" href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app gratuitement <Icon.Arrow /></a>
+                <a className="btn btn-primary" href="https://app-tirelire.ch" target="_blank">Essayer l'app gratuitement <Icon.Arrow /></a>
               </div>
               <div className="action-card">
                 <div className="action-head">
@@ -399,7 +399,7 @@ function BudgetSection() {
 
             <div className="phone-badge">
               <span className="chip is-green">En ligne · v3</span>
-              <p>Version disponible gratuitement sur app-tirelire.netlify.app</p>
+              <p>Version disponible gratuitement sur app-tirelire.ch</p>
             </div>
           </div>
         </div>
@@ -976,7 +976,7 @@ function PrivacyModal({ open, onClose }) {
 
         <p><strong>Données collectées</strong><br/>
         Sur le site vitrine : adresse email si tu t'inscris à la newsletter ou remplis le formulaire de contact expert.<br/>
-        Sur l'app (app-tirelire.netlify.app) : email, mot de passe (chiffré), données de budget saisies manuellement (revenus, dépenses, assurances).</p>
+        Sur l'app (app-tirelire.ch) : email, mot de passe (chiffré), données de budget saisies manuellement (revenus, dépenses, assurances).</p>
 
         <p><strong>Finalité</strong><br/>
         Les emails sont utilisés uniquement pour t'envoyer la newsletter ou te contacter suite à ta demande. Les données de l'app servent exclusivement à afficher ton tableau de bord personnel.</p>
@@ -1052,7 +1052,7 @@ function Footer() {
               <li><a href="#pilier">3e pilier</a></li>
               <li><a href="#etf">ETF & investissement</a></li>
               <li><a href="#actu">Newsletter</a></li>
-              <li><a href="https://app-tirelire.netlify.app" target="_blank">Essayer l'app</a></li>
+              <li><a href="https://app-tirelire.ch" target="_blank">Essayer l'app</a></li>
             </ul>
           </div>
           <div>
