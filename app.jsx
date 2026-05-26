@@ -972,7 +972,7 @@ function PrivacyModal({ open, onClose }) {
         <p style={{fontSize:12, color:'var(--ink-3)', marginBottom:20}}>Dernière mise à jour : mai 2026</p>
 
         <p><strong>Responsable du traitement</strong><br/>
-        Tirelire.ch — tirelire.ch@gmail.com — Suisse</p>
+        Tirelire.ch — team.tirelire@hotmail.com — Suisse</p>
 
         <p><strong>Données collectées</strong><br/>
         Sur le site vitrine : adresse email si tu t'inscris à la newsletter ou remplis le formulaire de contact expert.<br/>
@@ -988,7 +988,7 @@ function PrivacyModal({ open, onClose }) {
         Aucun cookie de tracking, aucune régie publicitaire, aucun outil d'analyse tiers.</p>
 
         <p><strong>Tes droits (nLPD suisse)</strong><br/>
-        Tu peux à tout moment demander l'accès, la rectification ou la suppression de tes données en écrivant à tirelire.ch@gmail.com.</p>
+        Tu peux à tout moment demander l'accès, la rectification ou la suppression de tes données en écrivant à team.tirelire@hotmail.com.</p>
 
         <button className="btn btn-secondary" onClick={onClose} style={{marginTop:8}}>Fermer</button>
       </div>
@@ -1058,7 +1058,7 @@ function Footer() {
           <div>
             <h4>Contact & légal</h4>
             <ul>
-              <li><a href="mailto:tirelire.ch@gmail.com">tirelire.ch@gmail.com</a></li>
+              <li><a href="mailto:team.tirelire@hotmail.com">team.tirelire@hotmail.com</a></li>
               <li><a style={{cursor:'pointer'}} onClick={() => setPrivacyOpen(true)}>Confidentialité</a></li>
               <li><a style={{cursor:'pointer'}} onClick={() => setConditionsOpen(true)}>Conditions</a></li>
             </ul>
